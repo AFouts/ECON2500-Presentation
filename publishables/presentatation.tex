@@ -11,8 +11,8 @@
 \usepackage{mathrsfs}
 \usepackage[makeroom]{cancel}
 \usepackage{amsmath,amsthm,stmaryrd,amssymb,bbm,amsfonts,amstext, graphicx, multicol, array}
-
-
+\usepackage{mathtools}
+\usepackage{color}
 
 \newcommand\vertarrowbox[3][2ex]{%
   \begin{array}[t]{@{}c@{}} #2 \\
@@ -21,10 +21,14 @@
   \end{array}%
 }
 
+\setbeamercolor{math text}{fg=blue}
+\setbeamercolor{math text displayed}{fg=blue}
+
+
 % ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 % ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-\title{ECON2840 Spring 2024\\Paper Presentation}
-\subtitle{Daron Acemoglu, The simple macroeconomics of AI, Economic Policy, Volume 40, Issue 121, January 2025, Pages 13–58}
+\title{ECON2500 Spring 2025\\ Paper Presentation}
+\subtitle{Arellano, Cristina, Mateos-Planas, Xavier and Ríos-Rull, José-Víctor, (2023), Partial Default, Journal of Political Economy, 131, issue 6, p. 1385 - 1439.}
 \author{Adrien Foutelet}
 \date{\today}
 % ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -53,263 +57,420 @@
 % ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 % ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 %
-\section{Context and Motivation}
+\section{Introduction}
 
 
-\begin{frame}{A lot of hype, hindisght from robotization, first experimental results}
+\begin{frame}{Motivation}
+Financial Times, March 7 2025. "What a Mar-a-Lago accord could look like":
+    
+\begin{quote}
 
-    \begin{itemize}
-        \item In the media:
-        \begin{itemize}
-            \item Science fiction fantasies,
-            \item ChatGPT: fastest spreading tech mlatform in history,
-        \end{itemize}
-        \item In the business world:
-        \begin{itemize}
-            \item Goldman Sachs (2023): Over ten years, 7\% increase in global GDP, 1.5\% annual increase in US productivity growth,
-            \item McKinsey Global Institute (2023): a USD 17-26 trillion increase to the global economy.
-            \item 12\% of the labor force.
-        \end{itemize}
-        \item Recall robotization (Acemoglu, Restrepo, 2020):
-        \begin{itemize}
-            \item Positive outcomes on firm owners and managers,
-            \item Negative outcomes on workers.
-        \end{itemize}
-        \item Experiments: nontrivial productivity gains driven by improvements for less productive/lower-performing workers.
-    \end{itemize}
+    \small
+
+    [...] On September 22 1985 [in Plaza Hotel in New York], the US government persuaded Britain, Japan, Germany and France to jointly devalue the dollar, to boost America's industrial competitiveness.
+
+    [...] There has been speculation about a new Plaza Accord — dubbed the "Mar-a-Lago Accord" — to depreciate the US dollar.
+
+    [...] consider a must-read essay from Stephen Miran, Trump's pick for chair of the Council of Economic Advisers.
+
+	[...] while Miran's essay warns that tariffs might initially strengthen the dollar, he thinks Washington can offset this. [...] one idea floating around is that other nations will be “encouraged” to swap holdings of dollars, short-term Treasuries or even gold for long-term or perpetual dollar bonds suitable for repurchase deals at the Federal Reserve.
+
+\end{quote}
+
+Formally, this is default: a sovereign does not honor its contractual payment schedule.
+    
+\end{frame}
+
+\begin{frame}{Motivation}
+
+\begin{itemize}
+    \item Standard theory: Eaton and Gersovitz (1981).
+    \\ \bigskip
+    A sovereign defaults completely and then faces complete exclusion from borrowing.
+    \\ \bigskip    
+    No further default or accumulation of defaulted debt.
+    \\ \bigskip
+    Problem: most of the time, default is partial and is followed by ad-hoc negociations with the lenders to pay later, such that defaulted debt accumulates.
+    \\ \bigskip
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}{Research question and strategy}
+\begin{frame}{Research question}
 
-\textit{What insight can we get, from the Macro labor toolbox, on the outcomes of AI for a ten-year horizon?}
-\newline
 \begin{itemize}
-    \item Fitting the Task.Skill.Capital framework from Acemoglu, Autor (2011); Restrepo (2018, 2019, 2022),
-    \item Empirical calibration and prediction.
+\item Novel paradigm.
+\\ \bigskip
+Partial default is an alternative and rational way to intertemporally transfer resources. It raises current resources (benefit) and increases future liabilities (cost).
+\\ \bigskip
+Difference with standard borrowing:
+\begin{itemize}
+    \item Flexibility: it does not require the acsquiescence of the lender (flexibility),
+    \item Expensiveness: it impacts future resources through the interest rate.
+\end{itemize}
+\end{itemize}
+\bigskip
+
+\textit{\textcolor{red}{Research question:}}\\
+\textit{\textcolor{red}{For a small open economy facing a portfolio choice, when is partial default in long-term bonds rational alongside borrowing? What are the effcts of partial default on the economy?}}
+\end{frame}
+
+
+
+\section{Accounting framework}
+
+\begin{frame}{Definitions}
+
+Let:
+
+\(a_t\) the total amount owed by the sovereign to the lender,
+
+\(d_t\) the flexible partial default policy of the sovereign,
+
+\(q_t\) the perpetuity bond price,
+
+\(b_t\) the perpetuity bond value,
+
+\(\delta\) the rate of decay of the coupon payment,
+
+\(\kappa\) the defaulted debt accumulation and restructuration parameter,
+
+\(R\) the risk-free gross interest rate.
+\\ \bigbreak
+We define:
+\\ \smallbreak
+\((1-d_t)a_t\) the debt service,
+\\ \smallbreak
+\(d_t a_t\) the defaulted coupon,
+\\ \smallbreak
+\(\{q_t;b_t;\delta\}\) the borrowing contract (the sovereign receives \(q_tb_t\) at \(t\) and pays back \(\delta^{j-1}b_t\) at \(t+j\)),
+
+
+\end{frame}
+
+\begin{frame}{Definitions}
+We define:
+\\ \smallbreak
+\(\kappa d_ta_t\) the present value of futur obligations resulting from the defaulted coupon.
+\\ \bigbreak
+By annuitization, we get:
+\\ \smallbreak
+\((R-\delta)\kappa d_ta_t\) the face value of the long-term perpetuity contract resulting from the defaulted coupon.
+\\ \bigbreak
+This takes us to the law of motion of debt due accumulation:
+
+\[
+  a_t
+  = \underbrace{\delta a_t}_\text{legacy debt}
+  + \underbrace{(R-\delta)\kappa d_t a_t}_\text{defaulted coupon}
+  + \underbrace{b_t}_\text{new borrowing}
+  \]
+
+\end{frame}
+
+\begin{frame}{Accounting variables}
+We define:
+\\ \smallbreak
+\(\tilde{a_t}^{t+j}\) the contractual payment due at \(t+j\).
+\\ \bigbreak
+We get:
+\\ \smallbreak
+\(\sum_{j=1}^{+\infty} \frac{\tilde{a_t}^{t+j}}{R^j}\) the debt level at \(t\),
+\\ \smallbreak
+\(\frac{1}{\sum_{j=1}^{+\infty} \frac{\tilde{a_t}^{t+j}}{R^j}}\sum_{j=1}^{+\infty} j\frac{\tilde{a_t}^{t+j}}{R^j}\) the duration of the debt at \(t\).
+\\ \bigbreak
+We define:
+\\ \smallbreak \(s_t\) the sovereign's spread (\(R+s_t\) the yield to maturity).
+\\ \bigbreak
+We get:
+\\ \smallbreak
+\(\sum_{j=1}^{+\infty} \frac{\tilde{a_t}^{t+j}}{(R+s_t)^j}\) the market value of debt.
+\end{frame}
+
+\begin{frame}{Accounting variables}
+The perpetuity bond price must be the price of both the borrowing contract and the default coupon (same risk of future default).
+\\ \bigbreak
+Therefore the market value of the long term perpetuity contract must be equal to \(q_ta_{t+1}\).
+\\ \bigbreak
+Therefore:
+\[s_t=\frac{1}{q_t}+\delta-R\]
+
+\end{frame}
+
+\begin{frame}{Accounting variables}
+For a default episode of length \(N+1\), we have:
+\bigbreak
+\(\sum_{j=0}^{N} \frac{d_{t+j}a_{t+j}}{R^j}\) the defaulted debt at \(t\),
+\bigbreak
+\(
+n_{t+j+1}=
+\begin{array}{cc}
+  \Biggl\{ & 
+    \begin{array}{cc}
+      (R-\delta)\kappa d_{t+j}+\delta n_{t+j} & \text{if j} \in \llbracket 0;N \rrbracket \\
+      \delta^{j-N-1} & else
+    \end{array}
+\end{array}
+\)
+the obligations to pay the defaulted debt back,
+\bigbreak
+\(\sum_{j=0}^{N}\frac{(1-d_{t+j})n_{t+j}}{R^j}+n_{t+N+1}\sum_{j=0}^{+\infty}\frac{\delta^j}{R^{N+j+1}}\) the restructured debt at \(t\),
+\(1-\frac{\sum_{j=0}^{N}\frac{(1-d_{t+j})n_{t+j}}{R^j}+n_{t+N+1}\sum_{j=0}^{+\infty}\frac{\delta^j}{R^{N+j+1}}}{\sum_{j=0}^{N} \frac{d_{t+j}a_{t+j}}{R^j}}\) the haircut at \(t\).
+
+\end{frame}
+
+
+
+
+
+\section{Data and Empirics}
+
+\begin{frame}{Data}
+    World Bank:
+        \begin{itemize}
+            \item World Development Indicators,
+            \item International Debt Statistics,
+            \item Debt Reporting System,
+            \item Global Financial Database.
+        \end{itemize}
+    37 emerging countries from 1970 to 2019, annual.
+    \\\bigbreak
+    \(\longrightarrow\) Panel data of debt service, defaulted coupons, debt due, partial defaut, spreads, linearily detrended log-GDP.
+    
+    \end{frame}    
+
+\begin{frame}{Empirics}
+
+\begin{figure}
+\includegraphics[width=0.7\textwidth]{../outputs/fig_2.png}
+\caption{Partial default and default episode length.}
+\end{figure}
+
+
+\end{frame}
+
+\begin{frame}{Empirics}
+
+\begin{figure}
+\includegraphics[width=0.7\textwidth]{../outputs/tab_1.png}
+\caption{Partial default and default episodes in percentages.}
+\end{figure}
+
+    
+\end{frame}
+
+\begin{frame}{Empirics}
+
+\begin{figure}
+    \includegraphics[width=0.7\textwidth]{../outputs/tab_2.png}
+    \caption{Comovements.}
+\end{figure}
+ 
+\begin{itemize}
+    \item Partial default is common,
+    \item Higher partial default \(\leftrightarrow\) Higher spreads, higher debts, more depressed output,
+    \item Hump-shape of the debt-to-output ratio, no reduction in debt.
 \end{itemize}
 
 \end{frame}
 
 \section{Model}
 
-\begin{frame}{Production}
+\begin{frame}{Setting}
 
+Consider a small open economy with:
 \begin{itemize}
-    \item A unique final good,
-    \item All markets are competitive,
-    \item A continuum of tasks: \([0;N]\),
-    \item Output of task z: \(y(z)\),
-    \item Production function: \textcolor{red}{\(Y=B(N)\Big(\int_{0}^{N}y(z)^{\frac{\sigma -1}{\sigma}}dz\Big)^{\frac{\sigma}{\sigma -1}}\)},
-    \item Constant elasticity of substitution (tasks are complements): \(\sigma\),
-    \item System-wide effect of new tasks: \(B(N)\),
-    \item Task production function: \textcolor{red}{\(y(z)=A_L\gamma_L(z)l(z)+A_K\gamma_Kk(z)\)}
-    (in fact \(y(z)=A_L\gamma_L(z)[l(z)^{1-\kappa}k_C(z)^\kappa)]+A_K\gamma_Kk(z)\)),
-    \item labor/capital-augmenting productivity terms: \(A_L\), \(A_K\),
-    \item Labor/capital task-specific productivity schedules: \(\gamma_L(z)\), \(\gamma_K(z)\).
-\end{itemize}
-Assume \(\frac{\gamma_L(z)}{\gamma_K(z)}\) increasing in z.
-
-Hence labor has a comparative advantage in higher-indexed tasks.
-
-\textcolor{red}{Hence \(z\in[0;I]\) is produced via capital; \(z\in]I;N]\) is produced via labor.}
-
-\end{frame}{}
-
-\begin{frame}{Labor, capital, consumption}
- 
-\begin{itemize}
-    \item Measure-one population,
-    \item High and low skill labor for fractions \(\Phi^H\), \(\Phi^U\) of the population endowed with \(\lambda^H\), \(\lambda^U\) units of labor (tasks can be performed by either),
-    \item \(\lambda^U < \lambda^H\),
-    \item Supply of labor: \textcolor{red}{\(\Phi^H\lambda^H+\Phi^U\lambda^U\)=L},
-    \item Wage rate: \(\omega\),
-    \item Aggregated capital: \(K=\int_{0}^{N}k(z)dz\)
-    \item Task-specialised capital \(k(z)\) produced linearily from final good Y with price \textcolor{red}{\(R(z)=R(K)\rho(z)\)},
-    \item \textcolor{red}{Households consume the final good net of capital expenditures}.
-\end{itemize}    
-
-\end{frame}
-
-\begin{frame}{Equilibrium}
-
-Characterization of an equilibrium:
-
-\begin{itemize}
-    \item z is produced by labor iff:
-    \[\frac{\omega}{A_L\gamma_L(z)}<\frac{R(z)}{A_K\gamma_K(z)}\],
-    \item
-    \[k(z)=argmax_{k(z)} \{Y-R(z)k(z)\}\],
-    \item Labor market clearing:
-    \[L=\int_{0}^{N}l(z)dz\].
-\end{itemize}
-We skip the solution. The point is to compute comparative statics.
-
-\end{frame}
-
-\begin{frame}{Towards comparative statics: how AI affects production}
-
-\begin{itemize}
-    \item Extensive margin automation i.e., increase in \(I\):
+    \item A stream of stochastic endowments,
+    \item A sovereign who:
     \begin{itemize}
-        \item AI reduces the cost of capital \(\rho(z)\) for some marginal tasks above \(I\),
-        \item AI increases the effectiveness of capital \(\gamma_K(z)\) for some marginal tasks above \(I\),
+        \item Borrows in long-term bonds,
+        \item Chooses to partially default on the debt due.
     \end{itemize}
-    \item Greater task complementarities, for \(z\in[0;I]\):
-    \begin{itemize}
-        \item AI raises the task-specific productivity of labor \(\gamma_L(z)\),
-        \item AI reduces the cost of complementary capital \(k_C(z)\),
-    \end{itemize} 
-    \item Intensive margin automation, for \(z\in[0;I]\):
-    \begin{itemize}
-        \item AI reduces the cost of capital \(\rho(z)\),
-        \item AI increases the effectiveness of capital \(\gamma_K(z)\),
-    \end{itemize}
-    \item New labor-intensive products or tasks i.e., increase in N:
-    \begin{itemize}
-        \item "Good" or "bad" in terms of social value, possibly causing externalities.
-    \end{itemize}
-\end{itemize}
-    
-\end{frame}
-
-\begin{frame}{Comparative statics}
-
-\begin{itemize}
-    \item Ambiguous sign of \(\frac{dln\omega}{dI}\):
-    \begin{itemize}
-        \item Increase in productivity \(\rightarrow\) Increase in wages,
-        \item Displacement of workers across tasks \(\rightarrow\) Decrease in wages.
-    \end{itemize}
-    \item Ambiguous sign of \(\frac{dln\omega}{d\gamma_L(z)}\):
-    \begin{itemize}
-        \item Increase in easiness to perform \(\rightarrow\) Decrease in task price not fully offset,
-        \item Unclear offset by increase in productivity.
-    \end{itemize}
-    \item For \(z\in[0;I]\), \(\frac{dln\omega}{d\gamma_K(z)}>0\), \(\frac{dln\omega}{d\rho(z)}>0\), \(\frac{dN}{d\rho(z)}>0\).
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Simplifying the job for aggregates: Hulten's theorem}
-
-How micro-level productivity improvements translate into macro changes.
-
-\[GDP=Y=\int_{0}^{N}p(z)y(z)dz\]
-
-At the equilibrium, any small change in an element of \(\{B;A_L;A_K;\gamma_L(z);\gamma_L(z);I;N\}\) (technology) has second-order impact on GDP via:
-\begin{itemize}
-    \item Reallocation of factors across tasks,
-    \item Prices.
 \end{itemize} 
 
-This takes us to
-\[dlnY=dlnTFP+S_KdlnK\]
-(with \(s_K\) the capital share of GDP) and
-\[dlnTFP=\text{Costs savings from automation}*\text{GDP share of AI-impacted tasks}\]
+\end{frame}
+
+\begin{frame}{The sovereign's problem}
+
+Let:
+\smallbreak
+\(z_t\) a stochastic endowment that follows a Markov process (transition probability: \(\pi(z_{t+1},z_t)\)),
+\smallbreak    
+\(E \Bigl\{ \sum_{t=0}^{+\infty} \beta^t u(c_t)\Bigr\}\) the objective function of the sovereign,
+\smallbreak    
+\(c_t=y_t-a_t(1-d_t)+q(a_{t+1},d_t,z_t)b_t\) the budget of the sovereign,
+\smallbreak    
+\(y_{t+1}=z_{t+1}\Psi(d_t,z_{t+1})\leq z_{t+1}\) the "production function" of income, with \(\Psi\) decreasing and concave in \(d_t\) and \(\Psi(0, z_{t+1}=1)\) (default carries a resource cost).
+\bigbreak
+Recall the accounting law of motion:
+\[
+  a_t
+  = \delta a_t
+  + (R-\delta)\kappa d_t a_t
+  + b_t
+  \]
+Each period, the sovereign chooses \(\{d_t;b_t\}\) facing \(\{q_t;z_t\}\).
 
 \end{frame}
 
-\begin{frame}{Finalizing the theory}
+\begin{frame}{The lenders' model}
 
-\begin{itemize}
-    \item Distinguishing between easy and hard to learn tasks
-    
-    \(\rightarrow\) Different productivity gain magnitudes,
-    \item Welfare analysis including the negative exterality from "bad" tasks,
-    \item Inclusion of multiple demographic groups
-    
-    \(\rightarrow\) Theoretical arguments in favour of rising inequality due to an increase in the productivity of low-skilled workers.
-\end{itemize}
-
-\end{frame}
-
-\section{Empirics}
-    
-\begin{frame}{Logic, sources, first estimates}
-
-    Estimates of which tasks can be automated with AI;
-    Estimates of the cost savings;
-    Estimates of new tasks.
-    
-    \(\rightarrow\)
-    
-    TFP growth estimates; GDP growth estimates; Wage growth estimates; Inequality implications.
-    \newline
     \begin{itemize}
-        \item GDP share of tasks impacted by AI within the next 10 years:
+        \item Purchase sovereign bonds by issuing securities at the risk-free world gross interest rate R.
+        \item The value of 1 unit of existing debt today is equal to the discounted stream of payments, which is:
         \begin{itemize}
-            \item Eloundou et al. (2023) \(\rightarrow\) Ask GPT-4 to classify O*NET 19,265 tasks and 2,087 Detailed Work Activity and infer an automation index.
-            \item U.S. Bureau of Labor Statistics National Occupational Employment and Wage Estimates.
-        \end{itemize}
-        4.6\%.
-        \item Cost savings from AI:
+            \item The amount paid today (partially defaulted or not),
+            \item The expected discounted continuation value,
+        \end{itemize} 
+        \item Free entry in the market drives profit to 0 and specifies \(q(a_{t+1},d_t,z_t)\),
+        \item Partial default:
         \begin{itemize}
-            \item Peng et al. (2023),
-            \item Noy and Zhang (2023),
-            \item Brynjolfsson et al. (2023).
+            \item Reduces the value held by lenders today,
+        \item Increases the value held by lenders tomorrow,
+        \item Affects the value lent by lenders tomorrow through its effect on output.
         \end{itemize}
-        20.5\%.
-
     \end{itemize}
 
 \end{frame}
 
-    
-\begin{frame}{TFP growth, GDP growth, bad tasks}
-    
+\begin{frame}{Equilibrium in recursive terms}
+
+The recursive Markov equilibrium consists in:
     \begin{itemize}
-        \item TFP growth over 10 years:
+        \item The borrower's decision rules for:
         \begin{itemize}
-            \item Ignoring hard and easy tasks:
-            
-            0.71\%. Likely to reach 1\% if the cost of AI decreases optimisticly over time,
-            
-            \item Considering hard and easy tasks:
-            
-            0.55\%. Likely to reach 1\% if the cost of AI decreases optimisticly over time,   
-        \end{itemize}
-        \item GDP growth over 10 years:
-        \begin{itemize}
-            \item Ignoring hard and easy tasks:
-            
-            1.1\%,
-
-            \item Considering hard and easy tasks:
-            
-            0.92\%,
-        \end{itemize}
-        \item Bursztyn et al. (2023) (estimate the welfare effect of social media):
-        
-        Currently 0.072\% of GDP, sizable effect on welfare.
+            \item Borrowing \(b(a,y,z)\),
+            \item Partial default \(d(a,y,z)\),
+            \item Consumption \(c(a,y,z)\),
+        \end{itemize} 
+        Which induce debt due \(a'(a,y,z)\),
+        \item The value of existing debt \(H(a,y,z)\),
+        \item The bond price function \(q(a',d,z)\),  
     \end{itemize}
+Such that:
+\begin{itemize}
+    \item Taking \(q(a',d,z)\) as given, the borrower's decision rule holds,
+    \item Taking \(b(a,y,z)\), \(d(a,y,z)\), \(c(a,y,z)\) as given, the lenders' decision rule holds,
+    \item \(q(a',d,z)\) yields zero profit. 
+\end{itemize}    
+\end{frame}
 
-\end{frame}   
+\begin{frame}{Teachings from the optimality conditions for the sovereign}
+Debt and borrowing are capped diffently.
+\bigbreak
+FOC with respect to \(b\):
+\begin{itemize}
+    \item 1 extra unit of \(b\) increases consumption by \(q\) but reduces the price of debt (raising the raising the debt due) by \(q_{a'}\),
+    \item This marginal gain from borrowing equals the marginal cost, which is the discounted expected value of increasing the debt burden.
+\end{itemize}
+Resources raised with borrowing are shaped by a laffer. curve\\
+
+\bigbreak
+FOC with respect to \(d\):
+\begin{itemize}
+    \item 1 extra unit of \(d\) increases consumption by \(a\) but reduces the price of debt (due to increasing future debt obligations and decreasing future resources) by \((q_{a'}(R-\delta)\kappa a + q_d)b\).
+\end{itemize}
+Resources raised with borrowing are not shaped by a laffer curve but have upper bound \(a\).
+
+\end{frame}
+
+\begin{frame}{Teachings from the optimality conditions for the sovereign}
+
+The combination of both yields, for interior solutions (partial default), the portfolio condition:
+\(R^b=R^d=\frac{u_c}{\beta E[u'_c]}\) (the expected return of marginal utility of consumption)\\
+\bigbreak
+For corner solutions (no partial default):
+\(R^b<R^d\)
+\bigbreak
+In case of partial default, the next period sees \(R^d<R^b\) and, by virtue of the portfolio condition, the sovereign is incentivized to exit default
+
+\bigbreak
+Borrowing is an attractive way to smooth consumption when:
+\begin{itemize}
+    \item The price of new debt is high,
+    \item The price of new debt decreases little marginally.
+\end{itemize}
+\bigbreak
+Partial default is an attractive way to smooth consumption when:
+\begin{itemize}
+    \item The price of new debt is low,
+    \item The price of new debt decreases a lot marginally.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Teachings from the zero profit condition and the decision rule}
+
+This specifies:
+\begin{itemize}
+    \item \(q_{a'}\):
+    \begin{itemize}
+        \item Negative effect from the higher likelyhood of a loss from not paying,
+        \item The diluted continuation effect (continuation amount diluted because of the future borrowing and defaults).
+    \end{itemize}
+    \item \(q_{d'}\)
+    \begin{itemize}
+        \item Negative effect from the output cost of default,
+        \item The diluted continuation effect (continuation amount diluted because of the future borrowing and defaults caused by the output decrease).
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\section{Quantitative results}
+
+\begin{frame}{Model calibration}
+
+Set:
+\smallbreak
+\(u(c)=\frac{c^{1-\sigma}}{1-\sigma}\),
+\smallbreak
+\(log(z)\) follows an 11-state approximation of an autoregressive process,
+\smallbreak
+\(\Psi(z',d)=(1-\phi_0 d^\gamma)(1-\hat{\phi}_1(z'-z*))\) with \(\phi_0>0\), \(\gamma>1\), \(\hat{\phi}_1=\phi_1\) if \(d>0\).
+\bigbreak
+Other parameters estimated by minimum distance (sum of the proportional square residuals of 11 moments), averaged across the 37 countries.
+\bigbreak
+Model simulated for 750,000 periods with the first 10\% discarded.
     
-\begin{frame}{Wages and inequality}
+\end{frame}
 
-Acemoglu and Restrepo (2022): The chore of the reasoning is the ripple effects: the displacement of one demographic group impacts others.
+\begin{frame}{Simulation}
+\begin{figure}
+    \includegraphics[width=0.7\textwidth]{../outputs/tab_4.png}
+    \caption{Moments in model and data.}
+\end{figure}
+\end{frame}
 
-\begin{itemize}
-    \item Least exposed: workers with less than high school,
-    \item Medium: postgraduate workers,
-    \item Most exposed: workers with college degrees and those with high school degrees or some college.
-\end{itemize}
+\begin{frame}{Decision rules to enter partial default}
+    \begin{figure}
+        \includegraphics[width=1\textwidth]{../outputs/fig_3.png}
+        \caption{Spreands, partial default, and portfolio.}
+    \end{figure}
+    \end{frame}
 
-Within the next ten years:
-\begin{itemize}
-    \item Predicted wage impacts do not appear to increase inequality between education groups.
-    \item Predicted impact on GDP considering hard and easy tasks: 1.62\%.
-    \item Predicted impact on capital share considering hard and easy tasks: 0.38\%.
-\end{itemize}
+\begin{frame}{Bins for quantitative implications}
+        \begin{figure}
+            \includegraphics[width=0.7\textwidth]{../outputs/tab_5.png}
+            \caption{Partial default, spreads, debt, and output.}
+        \end{figure}
+\end{frame}
 
-Consequences on inequality of AI will not be as adverse as those from pre-AI automation.
+\begin{frame}{Partial default episodes: length, haircuts, muaturity extensions}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{../outputs/tab_6.png}
+        \caption{Default episode properties.}
+    \end{figure}
+\end{frame}
 
-No evidence of inequality reduction.
-
-\end{frame}       
+\begin{frame}{Partial default episodes: dynamics}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{../outputs/fig_4.png}
+        \caption{Default episode properties.}
+    \end{figure}
+\end{frame}
 
 \section{Conclusion}
-
 
 \end{document}
 % ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
